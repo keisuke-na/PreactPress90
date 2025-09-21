@@ -16,17 +16,6 @@ export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts }) => {
     return acc;
   }, {} as Record<string, number>);
 
-  // 月別アーカイブの集計
-  const archives = posts.reduce((acc, post) => {
-    const date = new Date(post.date);
-    const key = `${date.getFullYear()}年${date.getMonth() + 1}月`;
-    acc[key] = (acc[key] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-
-  // 最近の記事（5件まで）
-  const recentPosts = posts.slice(0, 5);
-
   return (
     <div class="blog-index">
       <header class="blog-header">
@@ -37,14 +26,22 @@ export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts }) => {
       <div class="blog-content-wrapper">
         <aside class="sidebar">
           <section class="sidebar-section">
-            <h3>最近の記事</h3>
-            <ul class="recent-posts">
-              {recentPosts.map(post => (
+            <h3>About</h3>
+            <div class="about-content">
+              <p>PreactPress90は、Preact と Vite を使用した軽量な静的ブログジェネレーターです。</p>
+              <p>Markdownで記事を書き、高速な静的サイトを生成できます。</p>
+            </div>
+          </section>
+
+          <section class="sidebar-section">
+            <h3>記事一覧</h3>
+            <ul class="article-list">
+              {posts.map(post => (
                 <li key={post.slug}>
                   <a href={`/posts/${post.slug}.html`}>
                     {post.title}
                   </a>
-                  <span class="sidebar-date">
+                  <span class="article-date">
                     {new Date(post.date).toLocaleDateString('ja-JP', {
                       year: 'numeric',
                       month: '2-digit',
@@ -57,34 +54,24 @@ export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts }) => {
           </section>
 
           <section class="sidebar-section">
-            <h3>タグ</h3>
-            <div class="tag-cloud">
-              {Object.entries(tagCounts).map(([tag, count]) => (
-                <span key={tag} class="tag-item">
-                  <span class="tag-name">{tag}</span>
-                  <span class="tag-count">({count})</span>
-                </span>
-              ))}
-            </div>
-          </section>
-
-          <section class="sidebar-section">
-            <h3>月別アーカイブ</h3>
-            <ul class="archive-list">
-              {Object.entries(archives).map(([month, count]) => (
-                <li key={month}>
-                  <span class="archive-month">{month}</span>
-                  <span class="archive-count">({count})</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section class="sidebar-section">
-            <h3>About</h3>
-            <div class="about-content">
-              <p>PreactPress90は、Preact と Vite を使用した軽量な静的ブログジェネレーターです。</p>
-              <p>Markdownで記事を書き、高速な静的サイトを生成できます。</p>
+            <div class="language-stats">
+              {Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1])
+                .map(([tag, count]) => {
+                  const maxCount = Math.max(...Object.values(tagCounts));
+                  const percentage = (count / maxCount) * 100;
+                  return (
+                    <div key={tag} class="language-item">
+                      <span class="language-name">{tag}</span>
+                      <div class="language-bar-container">
+                        <div
+                          class="language-bar"
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </section>
         </aside>
