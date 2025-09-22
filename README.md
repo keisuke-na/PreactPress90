@@ -2,6 +2,8 @@
 
 90年代レトロデザインの静的ブログジェネレーター
 
+![PreactPress90 Screenshot](./public/screenshot.png)
+
 ## 特徴
 
 - 📝 Markdownで記事を書ける
