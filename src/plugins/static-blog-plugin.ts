@@ -86,13 +86,32 @@ async function loadCSS(rootDir: string): Promise<string> {
   }
 }
 
-function createHTMLDocument(content: string, title: string, css: string): string {
+function getExcerpt(content: string, maxLength: number = 160): string {
+  const plainText = content
+    .replace(/^#+\s+.*$/gm, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[*_`]/g, '')
+    .replace(/\n+/g, ' ')
+    .trim();
+
+  if (plainText.length <= maxLength) {
+    return plainText;
+  }
+
+  return plainText.slice(0, maxLength).trim() + '...';
+}
+
+function createHTMLDocument(content: string, title: string, css: string, description?: string): string {
+  const metaDescription = description
+    ? `  <meta name="description" content="${description.replace(/"/g, '&quot;')}">\n`
+    : '';
+
   return `<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title}</title>
+${metaDescription}  <title>${title}</title>
   <style>
     body {
       margin: 0;
@@ -111,7 +130,8 @@ function createHTMLDocument(content: string, title: string, css: string): string
 async function generateIndexHTML(posts: Post[], distPath: string, css: string): Promise<void> {
   const indexComponent = h(BlogIndex, { posts });
   const indexHTML = render(indexComponent);
-  const fullHTML = createHTMLDocument(indexHTML, 'PreactPress90 Blog', css);
+  const description = 'PreactPress90は、Preact と Vite を使用した軽量な静的ブログジェネレーターです。90年代のレトロなデザインでモダンな技術を楽しめます。';
+  const fullHTML = createHTMLDocument(indexHTML, 'PreactPress90 Blog', css, description);
 
   await fs.writeFile(path.join(distPath, 'index.html'), fullHTML, 'utf8');
   console.log('[Static Blog] Generated: index.html');
@@ -123,10 +143,12 @@ async function generatePostHTML(post: Post, allPosts: Post[], distPath: string, 
 
   const postComponent = h(BlogPost, { post, allPosts });
   const postHTML = render(postComponent);
+  const description = getExcerpt(post.content);
   const fullHTML = createHTMLDocument(
     postHTML,
     `${post.title} - PreactPress90 Blog`,
-    css
+    css,
+    description
   );
 
   const postPath = path.join(postsDir, `${post.slug}.html`);
