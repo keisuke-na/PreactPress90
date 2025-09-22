@@ -69,11 +69,18 @@ body {
   gap: 1rem;
 }
 
+.post-card-link {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
 .post-card {
   background: #C0C0C0;
   border: 2px solid;
   border-color: #FFFFFF #808080 #808080 #FFFFFF;
   padding: 1.5rem;
+  cursor: pointer;
 }
 
 .post-card:hover {
@@ -83,15 +90,11 @@ body {
 .post-title {
   margin: 0 0 0.75rem 0;
   font-size: 1.5rem;
-}
-
-.post-title a {
   color: #0000FF;
-  text-decoration: underline;
   font-weight: bold;
 }
 
-.post-title a:hover {
+.post-card:hover .post-title {
   color: #FF0000;
 }
 
@@ -113,13 +116,14 @@ body {
 }
 
 .tag {
-  background: #E0E0E0;
-  border: 1px solid #808080;
-  color: #404040;
-  padding: 0.2rem 0.4rem;
+  background: #FFFF99;
+  border-left: 3px solid #000000;
+  color: #000000;
+  padding: 0.1rem 0.3rem;
   font-size: 0.85rem;
   display: inline-block;
   font-family: 'Courier New', monospace;
+  text-transform: uppercase;
 }
 
 .post-excerpt {
@@ -207,16 +211,16 @@ body {
 
 .language-bar-container {
   width: 100%;
-  height: 8px;
-  background: #f0f0f0;
-  border-radius: 4px;
+  height: 10px;
+  background: #808080;
+  border: 1px solid #000000;
   overflow: hidden;
 }
 
 .language-bar {
   height: 100%;
   background: #00FF00;
-  border: 1px solid #008000;
+  border-right: 1px solid #000000;
   transition: width 0.3s ease;
 }
 

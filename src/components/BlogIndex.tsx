@@ -80,38 +80,38 @@ export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts }) => {
           <h2>最新記事</h2>
           <div class="posts-list">
             {posts.map(post => (
-              <article key={post.slug} class="post-card">
-                <h3 class="post-title">
-                  <a href={`/posts/${post.slug}.html`}>
+              <a href={`/posts/${post.slug}.html`} class="post-card-link">
+                <article key={post.slug} class="post-card">
+                  <h3 class="post-title">
                     {post.title}
-                  </a>
-                </h3>
+                  </h3>
 
-                <div class="post-meta">
-                  <time class="post-date" datetime={post.date}>
-                    {new Date(post.date).toLocaleDateString('ja-JP', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </time>
-                  <span class="post-author">by {post.author}</span>
-                </div>
-
-                {post.tags && post.tags.length > 0 && (
-                  <div class="post-tags">
-                    {post.tags.map(tag => (
-                      <span key={tag} class="tag">
-                        {tag}
-                      </span>
-                    ))}
+                  <div class="post-meta">
+                    <time class="post-date" datetime={post.date}>
+                      {new Date(post.date).toLocaleDateString('ja-JP', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </time>
+                    <span class="post-author">by {post.author}</span>
                   </div>
-                )}
 
-                <div class="post-excerpt">
-                  {getExcerpt(post.content)}
-                </div>
-              </article>
+                  {post.tags && post.tags.length > 0 && (
+                    <div class="post-tags">
+                      {post.tags.map(tag => (
+                        <span key={tag} class="tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div class="post-excerpt">
+                    {getExcerpt(post.content)}
+                  </div>
+                </article>
+              </a>
             ))}
           </div>
         </main>
