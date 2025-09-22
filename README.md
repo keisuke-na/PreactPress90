@@ -1,15 +1,42 @@
-# `create-preact`
+# PreactPress90
 
-<h2 align="center">
-  <img height="256" width="256" src="./src/assets/preact.svg">
-</h2>
+90年代レトロデザインの静的ブログジェネレーター
 
-<h3 align="center">Get started using Preact and Vite!</h3>
+## 特徴
 
-## Getting Started
+- 📝 Markdownで記事を書ける
+- 🎨 90年代風のレトロなデザイン
+- ⚡ Preact + Viteで高速ビルド
+- 📊 タグの使用状況をバーグラフで表示
 
--   `npm run dev` - Starts a dev server at http://localhost:5173/
+## セットアップ
 
--   `npm run build` - Builds for production, emitting to `dist/`
+```bash
+# 依存関係のインストール
+npm install
 
--   `npm run preview` - Starts a server at http://localhost:4173/ to test production build locally
+# 開発サーバーの起動
+npm run dev
+
+# 本番ビルド
+npm run build
+```
+
+## 記事の書き方
+
+`posts`フォルダに`.md`ファイルを作成：
+
+```markdown
+---
+title: "記事タイトル"
+date: "2025-01-21"
+author: "著者名"
+tags: ["Preact", "Vite"]
+---
+
+記事の内容をMarkdownで書く
+```
+
+## ライセンス
+
+MIT
