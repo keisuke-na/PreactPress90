@@ -3,9 +3,10 @@ import type { Post } from '../utils/posts';
 
 interface BlogIndexProps {
   posts: Post[];
+  baseUrl?: string;
 }
 
-export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts }) => {
+export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts, baseUrl = '' }) => {
   // タグの集計
   const tagCounts = posts.reduce((acc, post) => {
     if (post.tags) {
@@ -38,7 +39,7 @@ export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts }) => {
             <ul class="article-list">
               {posts.map(post => (
                 <li key={post.slug}>
-                  <a href={`/posts/${post.slug}.html`}>
+                  <a href={`${baseUrl}posts/${post.slug}.html`}>
                     {post.title}
                   </a>
                   <span class="article-date">
@@ -80,7 +81,7 @@ export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts }) => {
           <h2>最新記事</h2>
           <div class="posts-list">
             {posts.map(post => (
-              <a href={`/posts/${post.slug}.html`} class="post-card-link">
+              <a href={`${baseUrl}posts/${post.slug}.html`} class="post-card-link">
                 <article key={post.slug} class="post-card">
                   <h3 class="post-title">
                     {post.title}

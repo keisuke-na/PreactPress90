@@ -127,8 +127,8 @@ ${metaDescription}  <title>${title}</title>
 </html>`;
 }
 
-async function generateIndexHTML(posts: Post[], distPath: string, css: string): Promise<void> {
-  const indexComponent = h(BlogIndex, { posts });
+async function generateIndexHTML(posts: Post[], distPath: string, css: string, baseUrl: string): Promise<void> {
+  const indexComponent = h(BlogIndex, { posts, baseUrl });
   const indexHTML = render(indexComponent);
   const description = 'PreactPress90は、Preact と Vite を使用した軽量な静的ブログジェネレーターです。90年代のレトロなデザインでモダンな技術を楽しめます。';
   const fullHTML = createHTMLDocument(indexHTML, 'PreactPress90 Blog', css, description);
@@ -137,11 +137,11 @@ async function generateIndexHTML(posts: Post[], distPath: string, css: string): 
   console.log('[Static Blog] Generated: index.html');
 }
 
-async function generatePostHTML(post: Post, allPosts: Post[], distPath: string, css: string): Promise<void> {
+async function generatePostHTML(post: Post, allPosts: Post[], distPath: string, css: string, baseUrl: string): Promise<void> {
   const postsDir = path.join(distPath, 'posts');
   await fs.mkdir(postsDir, { recursive: true });
 
-  const postComponent = h(BlogPost, { post, allPosts });
+  const postComponent = h(BlogPost, { post, allPosts, baseUrl });
   const postHTML = render(postComponent);
   const description = getExcerpt(post.content);
   const fullHTML = createHTMLDocument(
@@ -212,10 +212,10 @@ export function staticBlogPlugin(options: StaticBlogPluginOptions = {}): Plugin 
         const css = await loadCSS(rootDir);
         console.log('[Static Blog] CSS files loaded');
 
-        await generateIndexHTML(posts, distPath, css);
+        await generateIndexHTML(posts, distPath, css, baseUrl);
 
         for (const post of posts) {
-          await generatePostHTML(post, posts, distPath, css);
+          await generatePostHTML(post, posts, distPath, css, baseUrl);
         }
 
         console.log(`[Static Blog] Output directory: ${distPath}`);

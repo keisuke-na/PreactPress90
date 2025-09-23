@@ -4,9 +4,10 @@ import type { Post } from '../utils/posts';
 interface BlogPostProps {
   post: Post;
   allPosts?: Post[];
+  baseUrl?: string;
 }
 
-export const BlogPost: FunctionalComponent<BlogPostProps> = ({ post, allPosts }) => {
+export const BlogPost: FunctionalComponent<BlogPostProps> = ({ post, allPosts, baseUrl = '' }) => {
   const currentIndex = allPosts?.findIndex(p => p.slug === post.slug) ?? -1;
   const prevPost = currentIndex > 0 ? allPosts?.[currentIndex - 1] : null;
   const nextPost = currentIndex !== -1 && currentIndex < (allPosts?.length ?? 0) - 1
@@ -17,7 +18,7 @@ export const BlogPost: FunctionalComponent<BlogPostProps> = ({ post, allPosts })
     <div class="blog-post">
       <header class="post-header">
         <nav class="breadcrumb">
-          <a href="/">← ブログトップへ戻る</a>
+          <a href={`${baseUrl}`}>← ブログトップへ戻る</a>
         </nav>
 
         <h1 class="post-title">{post.title}</h1>
@@ -53,7 +54,7 @@ export const BlogPost: FunctionalComponent<BlogPostProps> = ({ post, allPosts })
           {prevPost && (
             <div class="nav-previous">
               <span class="nav-label">← 前の記事</span>
-              <a href={`/posts/${prevPost.slug}.html`}>
+              <a href={`${baseUrl}posts/${prevPost.slug}.html`}>
                 {prevPost.title}
               </a>
             </div>
@@ -62,7 +63,7 @@ export const BlogPost: FunctionalComponent<BlogPostProps> = ({ post, allPosts })
           {nextPost && (
             <div class="nav-next">
               <span class="nav-label">次の記事 →</span>
-              <a href={`/posts/${nextPost.slug}.html`}>
+              <a href={`${baseUrl}posts/${nextPost.slug}.html`}>
                 {nextPost.title}
               </a>
             </div>
