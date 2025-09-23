@@ -123,6 +123,63 @@ ${metaDescription}  <title>${title}</title>
 </head>
 <body>
   ${content}
+  <script>
+    // Prefetch on hover for faster navigation
+    (function() {
+      const prefetched = new Set();
+
+      // Find all internal links
+      document.querySelectorAll('a[href*=".html"]').forEach(link => {
+        // Prefetch on mouse hover
+        link.addEventListener('mouseenter', function() {
+          const href = this.href;
+
+          // Skip if already prefetched or external link
+          if (prefetched.has(href) || !href.includes(window.location.origin)) {
+            return;
+          }
+
+          // Create prefetch link
+          const prefetchLink = document.createElement('link');
+          prefetchLink.rel = 'prefetch';
+          prefetchLink.href = href;
+          document.head.appendChild(prefetchLink);
+
+          prefetched.add(href);
+
+          // Also prefetch CSS and other resources
+          const cssLink = document.createElement('link');
+          cssLink.rel = 'prefetch';
+          cssLink.as = 'style';
+          document.head.appendChild(cssLink);
+        });
+
+        // Optional: Prefetch on touchstart for mobile
+        link.addEventListener('touchstart', function() {
+          const href = this.href;
+          if (!prefetched.has(href) && href.includes(window.location.origin)) {
+            const prefetchLink = document.createElement('link');
+            prefetchLink.rel = 'prefetch';
+            prefetchLink.href = href;
+            document.head.appendChild(prefetchLink);
+            prefetched.add(href);
+          }
+        }, { passive: true });
+      });
+
+      // Prefetch adjacent posts immediately (for blog posts)
+      const adjacentLinks = document.querySelectorAll('.nav-previous a, .nav-next a');
+      adjacentLinks.forEach(link => {
+        if (link.href && link.href.includes('.html')) {
+          const prefetchLink = document.createElement('link');
+          prefetchLink.rel = 'prefetch';
+          prefetchLink.href = link.href;
+          document.head.appendChild(prefetchLink);
+          prefetched.add(link.href);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>`;
 }
