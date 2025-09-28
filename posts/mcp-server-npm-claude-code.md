@@ -112,7 +112,7 @@ MCPサーバーのnpmパッケージ化で重要なポイント：
 
 Claude Codeで実際に実行した様子：
 
-![MCPサーバー実行例](/images/mcp-business-days-example.png)
+![MCPサーバー実行例](/PreactPress90/images/mcp-business-days-example.png)
 
 ## 関連リンク
 
