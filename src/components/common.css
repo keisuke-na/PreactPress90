@@ -5,6 +5,7 @@
    CSS変数定義
    ======================================== */
 :root {
+  /* カラー変数 */
   --bg-primary: #f7f8fa;
   --bg-secondary: #ffffff;
   --border-color: #e1e4e8;
@@ -12,6 +13,31 @@
   --text-secondary: #586069;
   --text-muted: #959da5;
   --accent-blue: #0366d6;
+
+  /* 黄金比変数 */
+  --golden-ratio: 1.618;
+
+  /* 基準値 */
+  --base-size: 16px;
+
+  /* フォントサイズ（黄金比階層） */
+  --font-xs: calc(var(--base-size) / var(--golden-ratio)); /* 約10px */
+  --font-sm: calc(var(--base-size) / 1.2); /* 約13px */
+  --font-base: var(--base-size); /* 16px */
+  --font-lg: calc(var(--base-size) * 1.2); /* 約19px */
+  --font-xl: calc(var(--base-size) * var(--golden-ratio)); /* 約26px */
+  --font-2xl: calc(var(--base-size) * var(--golden-ratio) * var(--golden-ratio)); /* 約42px */
+
+  /* 余白（黄金比ベース） */
+  --space-xs: 5px;
+  --space-sm: 8px;
+  --space-md: 13px;
+  --space-lg: 21px;
+  --space-xl: 34px;
+  --space-2xl: 55px;
+
+  /* 行の高さ */
+  --line-height: 1.618;
 }
 
 /* ========================================
@@ -31,7 +57,7 @@
   justify-content: center;
 
   /* テキストスタイル */
-  font-size: 13px;
+  font-size: var(--font-sm);
   color: var(--text-secondary);
   text-align: center;
 
@@ -70,10 +96,10 @@
    ======================================== */
 .tag {
   display: inline-block;
-  padding: 2px 8px;
+  padding: var(--space-xs) var(--space-sm);
   background-color: #f1f8ff;
   color: #0366d6;
-  font-size: 13px;
+  font-size: var(--font-sm);
   border-radius: 3px;
   font-weight: 500;
   transition: all 0.15s ease;
@@ -87,8 +113,8 @@
    共通ボタンスタイル
    ======================================== */
 .btn {
-  padding: 6px 12px;
-  font-size: 14px;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-sm);
   font-weight: 500;
   border-radius: 4px;
   border: 1px solid;
