@@ -7,7 +7,15 @@
   overflow: hidden;
 }
 
-/* サイドバーはcommon.cssとBlogIndex.cssのスタイルを共有 */
+/* サイドバー */
+.blog-post .sidebar {
+  width: 340px;
+  background-color: #ffffff;
+  border-right: 1px solid #e1e4e8;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
 /* メインコンテンツエリア */
 .post-main-wrapper {
