@@ -8,7 +8,7 @@
 
 /* 左サイドバー */
 .sidebar {
-  width: 300px; /* 黄金比: 全体幅に対して1:1.618の比率を考慮 */
+  width: 340px; /* 黄金比: 全体幅に対して1:1.618の比率を考慮 */
   background-color: #ffffff;
   border-right: 1px solid #e1e4e8;
   display: flex;
