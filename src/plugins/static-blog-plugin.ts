@@ -69,6 +69,12 @@ async function getAllPosts(postsPath: string): Promise<Post[]> {
 
 async function loadCSS(rootDir: string): Promise<string> {
   try {
+    // 共通スタイルを最初に読み込む
+    const commonCSS = await fs.readFile(
+      path.join(rootDir, 'src/components/common.css'),
+      'utf8'
+    ).catch(() => '');
+
     const indexCSS = await fs.readFile(
       path.join(rootDir, 'src/components/BlogIndex.css'),
       'utf8'
@@ -79,7 +85,8 @@ async function loadCSS(rootDir: string): Promise<string> {
       'utf8'
     ).catch(() => '');
 
-    return indexCSS + '\n' + postCSS;
+    // 共通スタイル → 個別スタイルの順で結合
+    return commonCSS + '\n' + indexCSS + '\n' + postCSS;
   } catch (error) {
     console.error('[Static Blog] Error loading CSS files:', error);
     return '';

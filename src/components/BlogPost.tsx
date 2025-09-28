@@ -1,5 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import type { Post } from '../utils/posts';
+import { Footer } from './Footer';
+import { Sidebar } from './Sidebar';
 
 interface BlogPostProps {
   post: Post;
@@ -16,66 +18,70 @@ export const BlogPost: FunctionalComponent<BlogPostProps> = ({ post, allPosts, b
 
   return (
     <div class="blog-post">
-      <header class="post-header">
-        <nav class="breadcrumb">
-          <a href={`${baseUrl}`}>← ブログトップへ戻る</a>
-        </nav>
+      <Sidebar posts={allPosts || []} baseUrl={baseUrl} />
 
-        <h1 class="post-title">{post.title}</h1>
+      <div class="post-main-wrapper">
+        <header class="post-header">
+          <nav class="breadcrumb">
+            <a href={`${baseUrl}`}>← Back to Blog</a>
+          </nav>
 
-        <div class="post-meta">
-          <time class="post-date" datetime={post.date}>
-            {new Date(post.date).toLocaleDateString('ja-JP', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </time>
-          <span class="post-author">by {post.author}</span>
-        </div>
+          <h1 class="post-title">{post.title}</h1>
 
-        {post.tags && post.tags.length > 0 && (
-          <div class="post-tags">
-            {post.tags.map(tag => (
-              <span key={tag} class="tag">
-                {tag}
-              </span>
-            ))}
+          <div class="post-meta">
+            <time class="post-date" datetime={post.date}>
+              {new Date(post.date).toLocaleDateString('ja-JP', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
+            <span class="post-author">by {post.author}</span>
           </div>
-        )}
-      </header>
 
-      <article class="post-content">
-        <div dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
-      </article>
-
-      <nav class="post-navigation">
-        <div class="nav-links">
-          {prevPost && (
-            <div class="nav-previous">
-              <span class="nav-label">← 前の記事</span>
-              <a href={`${baseUrl}posts/${prevPost.slug}.html`}>
-                {prevPost.title}
-              </a>
+          {post.tags && post.tags.length > 0 && (
+            <div class="post-tags">
+              {post.tags.map(tag => (
+                <span key={tag} class="tag">
+                  {tag}
+                </span>
+              ))}
             </div>
           )}
+        </header>
 
-          {nextPost && (
-            <div class="nav-next">
-              <span class="nav-label">次の記事 →</span>
-              <a href={`${baseUrl}posts/${nextPost.slug}.html`}>
-                {nextPost.title}
-              </a>
-            </div>
-          )}
-        </div>
-      </nav>
+        <div class="post-content-area">
+          <div class="post-content-wrapper">
+            <article class="post-content">
+              <div dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
+            </article>
 
-      <footer class="post-footer">
-        <div class="footer-content">
-          <p>&copy; 2025 PreactPress90. Built with Preact and Vite.</p>
+            <nav class="post-navigation">
+              <div class="nav-links">
+                {prevPost && (
+                  <div class="nav-previous">
+                    <span class="nav-label">Previous Post</span>
+                    <a href={`${baseUrl}posts/${prevPost.slug}.html`}>
+                      {prevPost.title}
+                    </a>
+                  </div>
+                )}
+
+                {nextPost && (
+                  <div class="nav-next">
+                    <span class="nav-label">Next Post</span>
+                    <a href={`${baseUrl}posts/${nextPost.slug}.html`}>
+                      {nextPost.title}
+                    </a>
+                  </div>
+                )}
+              </div>
+            </nav>
+          </div>
+
+          <Footer />
         </div>
-      </footer>
+      </div>
     </div>
   );
 };

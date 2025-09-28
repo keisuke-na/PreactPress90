@@ -1,153 +1,79 @@
-body {
-  background: #D0D0D0;
-  margin: 0;
-  padding: 0;
-  min-width: 430px;
-  overflow-x: auto;
-}
-
+/* MCP Inspector風のクリーンなデザイン */
 .blog-index {
-  min-width: 430px;
-  padding: 1rem;
-  font-family: 'Times New Roman', Times, serif;
-  background: #D0D0D0;
-}
-
-.blog-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  background: #000080;
-  border: 2px solid;
-  border-color: #FFFFFF #404040 #404040 #FFFFFF;
-  padding: 1rem;
-}
-
-.blog-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: #FFFF00;
-  text-shadow: 2px 2px 0px #000000;
-}
-
-.blog-description {
-  color: #FFFFFF;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-.blog-content-wrapper {
   display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  background: #D0D0D0;
+  height: 100vh;
+  background-color: #f7f8fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
-.posts-container {
-  flex: 1;
-  min-width: 0;
-}
-
-.posts-container h2 {
-  font-size: 1.8rem;
-  margin: 0 0 1rem 0;
-  color: #000080;
-  background: #FFFF00;
-  border: 2px solid;
-  border-color: #FFFFFF #808080 #808080 #FFFFFF;
-  padding: 0.5rem;
-  text-align: center;
-}
-
-.posts-list {
+/* 左サイドバー */
+.sidebar {
+  width: 280px;
+  background-color: #ffffff;
+  border-right: 1px solid #e1e4e8;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  overflow: hidden;
 }
 
-.post-card-link {
-  text-decoration: none;
-  display: block;
-  color: inherit;
+.sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid #e1e4e8;
+  background-color: #ffffff;
 }
 
-.post-card {
-  background: #D0D0D0;
-  border: 2px solid;
-  border-color: #FFFFFF #808080 #808080 #FFFFFF;
-  padding: 1.5rem;
-  cursor: pointer;
+.sidebar-header h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #24292e;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.post-card:hover {
-  background: #E0E0E0;
+.sidebar-subtitle {
+  font-size: 13px;
+  color: #586069;
+  margin: 4px 0 0 0;
 }
 
-.post-title {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.5rem;
-  color: #0000FF;
-  font-weight: bold;
-}
-
-.post-card:hover .post-title {
-  color: #FF0000;
-}
-
-.post-meta {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-.post-date {
-  margin-right: 1rem;
-}
-
-.post-tags {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.tag {
-  background: #FFFF99;
-  border-left: 3px solid #000000;
-  color: #000000;
-  padding: 0.1rem 0.3rem;
-  font-size: 0.85rem;
-  display: inline-block;
-  font-family: 'Courier New', monospace;
-  text-transform: uppercase;
-}
-
-.post-excerpt {
-  color: #444;
-  line-height: 1.6;
-  font-size: 1rem;
-}
-
-.sidebar {
-  width: 200px;
-  flex-shrink: 0;
-  padding-right: 1rem;
-  border-right: 2px solid #808080;
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
 }
 
 .sidebar-section {
-  background: #D0D0D0;
-  border: 2px solid;
-  border-color: #FFFFFF #808080 #808080 #FFFFFF;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.sidebar-section:last-child {
+  border-bottom: none;
 }
 
 .sidebar-section h3 {
-  font-size: 1.2rem;
-  margin: 0 0 1rem 0;
-  color: #333;
-  border-bottom: 2px solid #e1e4e8;
-  padding-bottom: 0.5rem;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #586069;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+  background-color: #f6f8fa;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.about-content {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #586069;
+  line-height: 1.5;
+}
+
+.about-content p {
+  margin: 0 0 8px 0;
+}
+
+.about-content p:last-child {
+  margin: 0;
 }
 
 .article-list {
@@ -157,96 +83,191 @@ body {
 }
 
 .article-list li {
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.article-list li:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
+  position: relative;
 }
 
 .article-list a {
-  color: #0000FF;
-  text-decoration: underline;
-  font-size: 0.95rem;
   display: block;
-  margin-bottom: 0.25rem;
+  padding: 8px 16px;
+  color: #24292e;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.article-list li:hover {
+  background-color: #f6f8fa;
 }
 
 .article-list a:hover {
-  color: #FF0000;
-  background: #FFFF00;
+  color: #0366d6;
 }
 
 .article-date {
-  color: #999;
-  font-size: 0.85rem;
+  display: block;
+  color: #959da5;
+  font-size: 13px;
+  margin-top: 2px;
 }
 
 .language-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  padding: 12px 16px;
 }
 
 .language-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  margin-bottom: 12px;
+}
+
+.language-item:last-child {
+  margin-bottom: 0;
 }
 
 .language-name {
-  color: #495057;
-  font-size: 0.9rem;
-  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #586069;
+  margin-bottom: 4px;
 }
 
 .language-bar-container {
-  width: 100%;
-  height: 10px;
-  background: #808080;
-  border: 1px solid #000000;
+  height: 8px;
+  background-color: #e1e4e8;
+  border-radius: 4px;
   overflow: hidden;
 }
 
 .language-bar {
   height: 100%;
-  background: #00FF00;
-  border-right: 1px solid #000000;
+  background-color: #2188ff;
   transition: width 0.3s ease;
 }
 
-.about-content {
-  color: #666;
-  font-size: 0.95rem;
-  line-height: 1.6;
+/* メインコンテンツエリア */
+.blog-content-wrapper {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
 }
 
-.about-content p {
-  margin: 0.75rem 0;
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f8fa;
 }
 
-.about-content p:first-child {
-  margin-top: 0;
+.posts-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
 }
 
-.about-content p:last-child {
-  margin-bottom: 0;
+.posts-container h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #586069;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 16px 0;
 }
 
-.blog-footer {
-  padding: 1rem;
-  text-align: center;
-  background: #D0D0D0;
-  font-size: 0.9rem;
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.blog-footer p {
-  margin: 0;
-  color: #333;
+.post-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-card {
+  background-color: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.post-card:hover {
+  border-color: #d1d5da;
+  box-shadow: 0 1px 3px rgba(27,31,35,0.08);
+  transform: translateY(-1px);
+}
+
+.post-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #24292e;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.post-card:hover .post-title {
+  color: #0366d6;
+}
+
+.post-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  color: #586069;
+  margin-bottom: 12px;
+}
+
+.post-date,
+.post-author {
+  color: #586069;
+}
+
+.post-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+/* .tag スタイルはcommon.cssで定義 */
+
+.post-excerpt {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #586069;
+}
+
+/* 右サイドパネル（将来的な拡張用） */
+.detail-panel {
+  width: 300px;
+  background-color: #ffffff;
+  border-left: 1px solid #e1e4e8;
+  padding: 24px;
+  overflow-y: auto;
+  display: none; /* デフォルトでは非表示 */
+}
+
+.detail-panel.active {
+  display: block;
+}
+
+.detail-panel h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #24292e;
+  margin: 0 0 16px 0;
+}
+
+/* フッターのスタイルはcommon.cssで管理 */
+
+/* ボタンスタイルはcommon.cssで定義 */
+
+/* レスポンシブ対応 */
+@media (max-width: 1024px) {
+  .detail-panel {
+    display: none !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -256,10 +277,15 @@ body {
 
   .sidebar {
     width: 100%;
-    margin-top: 1rem;
-    padding-right: 0;
+    height: auto;
+    max-height: 40vh;
     border-right: none;
-    border-bottom: 2px solid #808080;
-    padding-bottom: 1rem;
+    border-bottom: 1px solid #e1e4e8;
+  }
+
+  .posts-container {
+    padding: 16px;
   }
 }
+
+/* スクロールバースタイルはcommon.cssで定義 */

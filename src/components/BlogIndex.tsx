@@ -1,5 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import type { Post } from '../utils/posts';
+import { Footer } from './Footer';
+import { Sidebar } from './Sidebar';
 
 interface BlogIndexProps {
   posts: Post[];
@@ -7,120 +9,55 @@ interface BlogIndexProps {
 }
 
 export const BlogIndex: FunctionalComponent<BlogIndexProps> = ({ posts, baseUrl = '' }) => {
-  // タグの集計
-  const tagCounts = posts.reduce((acc, post) => {
-    if (post.tags) {
-      post.tags.forEach(tag => {
-        acc[tag] = (acc[tag] || 0) + 1;
-      });
-    }
-    return acc;
-  }, {} as Record<string, number>);
-
   return (
     <div class="blog-index">
-      <header class="blog-header">
-        <h1>PreactPress90 Blog</h1>
-        <p class="blog-description">Preact + Viteで作られた静的ブログシステム</p>
-      </header>
-
       <div class="blog-content-wrapper">
-        <aside class="sidebar">
-          <section class="sidebar-section">
-            <h3>About</h3>
-            <div class="about-content">
-              <p>PreactPress90は、Preact と Vite を使用した軽量な静的ブログジェネレーターです。</p>
-              <p>Markdownで記事を書き、高速な静的サイトを生成できます。</p>
-            </div>
-          </section>
+        <Sidebar posts={posts} baseUrl={baseUrl} />
 
-          <section class="sidebar-section">
-            <h3>記事一覧</h3>
-            <ul class="article-list">
+        <div class="main-content">
+          <main class="posts-container">
+            <h2>Latest Posts</h2>
+            <div class="posts-list">
               {posts.map(post => (
-                <li key={post.slug}>
-                  <a href={`${baseUrl}posts/${post.slug}.html`}>
-                    {post.title}
-                  </a>
-                  <span class="article-date">
-                    {new Date(post.date).toLocaleDateString('ja-JP', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit'
-                    })}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
+                <a href={`${baseUrl}posts/${post.slug}.html`} class="post-card-link" key={post.slug}>
+                  <article class="post-card">
+                    <h3 class="post-title">
+                      {post.title}
+                    </h3>
 
-          <section class="sidebar-section">
-            <div class="language-stats">
-              {Object.entries(tagCounts)
-                .sort((a, b) => b[1] - a[1])
-                .map(([tag, count]) => {
-                  const maxCount = Math.max(...Object.values(tagCounts));
-                  const percentage = (count / maxCount) * 100;
-                  return (
-                    <div key={tag} class="language-item">
-                      <span class="language-name">{tag}</span>
-                      <div class="language-bar-container">
-                        <div
-                          class="language-bar"
-                          style={{ width: `${percentage}%` }}
-                        />
+                    <div class="post-meta">
+                      <time class="post-date" datetime={post.date}>
+                        {new Date(post.date).toLocaleDateString('ja-JP', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </time>
+                      <span class="post-author">by {post.author}</span>
+                    </div>
+
+                    {post.tags && post.tags.length > 0 && (
+                      <div class="post-tags">
+                        {post.tags.map(tag => (
+                          <span key={tag} class="tag">
+                            {tag}
+                          </span>
+                        ))}
                       </div>
+                    )}
+
+                    <div class="post-excerpt">
+                      {getExcerpt(post.content)}
                     </div>
-                  );
-                })}
+                  </article>
+                </a>
+              ))}
             </div>
-          </section>
-        </aside>
+          </main>
 
-        <main class="posts-container">
-          <h2>最新記事</h2>
-          <div class="posts-list">
-            {posts.map(post => (
-              <a href={`${baseUrl}posts/${post.slug}.html`} class="post-card-link">
-                <article key={post.slug} class="post-card">
-                  <h3 class="post-title">
-                    {post.title}
-                  </h3>
-
-                  <div class="post-meta">
-                    <time class="post-date" datetime={post.date}>
-                      {new Date(post.date).toLocaleDateString('ja-JP', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </time>
-                    <span class="post-author">by {post.author}</span>
-                  </div>
-
-                  {post.tags && post.tags.length > 0 && (
-                    <div class="post-tags">
-                      {post.tags.map(tag => (
-                        <span key={tag} class="tag">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  <div class="post-excerpt">
-                    {getExcerpt(post.content)}
-                  </div>
-                </article>
-              </a>
-            ))}
-          </div>
-        </main>
+          <Footer />
+        </div>
       </div>
-
-      <footer class="blog-footer">
-        <p>&copy; 2025 PreactPress90. Built with Preact and Vite.</p>
-      </footer>
     </div>
   );
 };
